@@ -1,0 +1,56 @@
+<div>
+    <h2>Sheeps</h2>
+    <jh-alert></jh-alert>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-primary" ui-sref="sheep.new">
+                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Sheep</span>
+                </button>
+                <button  ng-click="readFile()" class="btn btn-info btn-sm">
+                	<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span>Import XML file</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span>Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="age"><span>Age</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="age_last_shaved"><span>Age_last_shaved</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="sheep in sheeps track by sheep.id">
+                    <td><a ui-sref="sheep.detail({id:sheep.id})">{{sheep.id}}</a></td>
+                    <td>{{sheep.name}}</td>
+                    <td>{{sheep.age}}</td>
+                    <td>{{sheep.age_last_shaved}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="sheep.detail({id:sheep.id})"
+                                class="btn btn-info btn-sm">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="sheep.edit({id:sheep.id})"
+                                class="btn btn-primary btn-sm">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ui-sref="sheep.delete({id:sheep.id})"
+                                class="btn btn-danger btn-sm">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <uib-pager total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pager>
+</div>

@@ -1,0 +1,24 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "age",
+            "fieldType": "Double"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "age_last_shaved",
+            "fieldType": "Double"
+        }
+    ],
+    "changelogDate": "20160523205117",
+    "dto": "no",
+    "service": "serviceClass",
+    "pagination": "pager"
+}
