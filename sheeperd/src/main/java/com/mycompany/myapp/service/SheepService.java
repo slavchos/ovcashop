@@ -60,29 +60,40 @@ public class SheepService {
         log.debug("Request to get all Sheeps");
         List<Sheep> existingSheeps = sheepRepository.findAll();
         double sumSheepsMilk = 0;
-        double sheepShaved = 0;
+        double sumSkins = 0;
         for(Sheep sheepSample : existingSheeps) {
         	double sheepDailyMilk = 0;
         	double sheepTotalMilk = 0;
-        	int currentDay = 1;
-        	while (currentDay <= days && (sheepSample.getAge()+currentDay*0.01)<10){
+        	double sheepShaved = 1;
+        	int currentDay = 0;
+        	while (currentDay < days && (sheepSample.getAge()+currentDay*0.01)<10){
                 double sheepCurrentAge = sheepSample.getAge() + currentDay*0.01;
         		sheepDailyMilk = (50-(sheepSample.getAge()*100+currentDay)*0.03);
         		currentDay++;
         		sheepTotalMilk += sheepDailyMilk;
 
-                if(sheepSample.getAge_last_shaved()==null){
-                	sheepSample.setAge_last_shaved(sheepCurrentAge);
-                } else if((sheepCurrentAge - sheepSample.getAge_last_shaved()) > 8){
-                	sheepSample.setAge_last_shaved(sheepCurrentAge);
-                	sheepShaved++;
-                }
+//                if(sheepSample.getAge_last_shaved()==null){
+//                	sheepSample.setAge_last_shaved(1.0);
+//                } else if((sheepCurrentAge - sheepSample.getAge_last_shaved()) > 8){
+//                	sheepSample.setAge_last_shaved(sheepCurrentAge);
+//                	sheepShaved++;
+//                }
+                log.debug("currentDay "+currentDay);
+                log.debug("sheepSample.getAge() "+sheepSample.getAge());
+                log.debug("currentDay%(8+sheepCurrentAge)==0.0 "+currentDay%(8+sheepSample.getAge()));
+
+        		if(currentDay%(8+sheepSample.getAge())==0){
+
+        			sheepShaved++;
+        			log.debug("PLUS SHEEP SKIN "+sheepShaved);
+        		}
         	}
         	sumSheepsMilk += sheepTotalMilk;
+        	sumSkins += sheepShaved;
         }
         log.debug("Total amount of Milk: {}", sumSheepsMilk);
         stock.setMilk(sumSheepsMilk);
-        stock.setSkins(sheepShaved);
+        stock.setSkins(sumSkins);
         return stock;
     }
     
